@@ -3,6 +3,7 @@ package com.hunterdavis.makemerich.simulator;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -13,24 +14,39 @@ public class Simulator {
     // for string and preference lookup
     Context appContext;
 
-    public long ticks = 0;
-    public long simulatorTime = 0;
-    public SimulatorState simulatorState= new SimulatorState();
-
-    public AtomicBoolean silentMode = new AtomicBoolean(false);
+    public SimulatorState simulatorState;
 
     public ArrayList<SimulatorEvent> eventPlugins = new ArrayList<>();
 
-    public void registerEventPlugin() {
+    public void registerEventPlugin(SimulatorEvent event) {
+        eventPlugins.add(event);
+    }
 
+    public void unregisterEventPlugin(long eventId, boolean removeAllFound) {
+        for (Iterator eventRemovalIterator = eventPlugins.iterator(); eventRemovalIterator.hasNext();) {
+            SimulatorEvent event = (SimulatorEvent) eventRemovalIterator.next();
+
+            if(event.id == eventId) {
+                eventRemovalIterator.remove();
+
+                if(!removeAllFound) {
+                    break;
+                }
+            }
+        }
     }
 
     public Simulator(Context context) {
         this.appContext = context;
+        resetToZeroStateWithCurrentPlugins();
+    }
+
+    public void resetToZeroStateWithCurrentPlugins() {
+        simulatorState= new SimulatorState(appContext);
     }
 
     public void tick() {
-        ticks++;
+        simulatorState.ticks++;
 
         // do simulator stuff pre-time
         for(SimulatorEvent simEvent : eventPlugins) {
@@ -39,6 +55,9 @@ public class Simulator {
             }
             // execute plugin pre-time logic
         }
+
+        // add more time to simulator
+        simulatorState.simulatorTime++;
 
         // do simulator stuff on-time
         for(SimulatorEvent simEvent : eventPlugins) {
@@ -60,14 +79,24 @@ public class Simulator {
     }
 
     public void regenerateToCurrentTimeWithNewValues() {
-        silentMode.set(true);
+        simulatorState.silentMode.set(true);
 
-
-
-        silentMode.set(false);
+        final long oldCurrentTime = simulatorState.simulatorTime;
+        resetToZeroStateWithCurrentPlugins();
+        runToTime(oldCurrentTime);
+        simulatorState.silentMode.set(false);
     }
 
     public void runToTime(long timeToRunTo) {
+        final long runToMe = timeToRunTo;
 
+        // we've passed this time already
+        if(simulatorState.simulatorTime > runToMe) {
+            return;
+        }
+
+        while(simulatorState.simulatorTime < timeToRunTo) {
+            tick();
+        }
     }
 }

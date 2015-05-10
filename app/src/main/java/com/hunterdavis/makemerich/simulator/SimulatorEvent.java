@@ -7,6 +7,10 @@ import java.util.ArrayList;
  */
 public interface SimulatorEvent {
 
+    public String name = null;
+    public long id = 0;
+
+    
     ArrayList<SimulatorEventRunnable> getPreTimeRunnables();
     ArrayList<SimulatorEventRunnable> getOnTimeRunnables();
     ArrayList<SimulatorEventRunnable> getPostTimeRunnables();
