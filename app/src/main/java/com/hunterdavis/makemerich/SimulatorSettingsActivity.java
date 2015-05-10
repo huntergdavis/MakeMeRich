@@ -80,7 +80,7 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
         bindPreferenceSummaryToValue(findPreference("example_text"));
-        bindPreferenceSummaryToValue(findPreference("example_list"));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.id_fidelity)));
         bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
         bindPreferenceSummaryToValue(findPreference("sync_frequency"));
     }
@@ -174,6 +174,11 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
+
+            // regenerate the simulation to current state with new values
+            MainSimulatorView.TheSimulator.regenerateToCurrentTimeWithNewValues();
+
+
             return true;
         }
     };
@@ -215,7 +220,7 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.id_fidelity)));
         }
     }
 

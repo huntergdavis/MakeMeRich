@@ -22,9 +22,9 @@
          dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:key="example_list"
+        android:key="@string/id_fidelity"
         android:title="@string/pref_title_simulation_fidelity"
-        android:defaultValue="-1"
+        android:defaultValue="@string/simulation_fidelity_default_value"
         android:entries="@array/prefs_simulation_fidelity"
         android:entryValues="@array/pref_simulation_fidelity_values"
         android:negativeButtonText="@null"

@@ -37,7 +37,7 @@ public class MainSimulatorView extends ActionBarActivity
 
     // our financial Simulator
 
-    public Simulator TheSimulator = null;
+    public static Simulator TheSimulator = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
