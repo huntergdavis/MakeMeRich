@@ -35,8 +35,8 @@ public class Account {
     }
 
     public void runToTimeInFuture(long time) {
-        this.currentTime = time;
         this.currentValue = getValueAtTimeInFuture(time);
+        this.currentTime = time;
     }
 
     // returns value at time, or current if past
