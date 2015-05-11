@@ -11,8 +11,7 @@ public class TestSimWorld1 extends SimulationWorld {
 
 
     public TestSimWorld1() {
-        ArrayList<Account> retAccounts =  new ArrayList<>();
-
+        retAccounts =  new ArrayList<>();
         retAccounts.add(createTestAccount1());
     }
 
