@@ -33,7 +33,7 @@ public class AccountInterestItem {
         retString += "\n";
         retString += startTime + "  through " + endTime ;
         retString += "\n";
-        retString += "(calculated every " + calculationFrequencyInMilliseconds + " milliseconds";
+        retString += "(calculated every " + calculationFrequencyInMilliseconds + ") milliseconds";
         retString += "\n";
 
         return retString;

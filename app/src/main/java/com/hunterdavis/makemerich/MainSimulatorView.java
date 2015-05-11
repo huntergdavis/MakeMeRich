@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.hunterdavis.makemerich.simulator.Simulator;
 import com.hunterdavis.makemerich.simulator.TestSimWorld1;
@@ -147,6 +148,7 @@ public class MainSimulatorView extends ActionBarActivity
             View rootView = inflater.inflate(R.layout.fragment_main_simulator_view, container, false);
 
 
+            final TextView mainTextView = (TextView)rootView.findViewById(R.id.helloSimTextView);
             final Button test1Button = (Button)rootView.findViewById(R.id.button_test_simulation_1);
 
             test1Button.setOnClickListener(new View.OnClickListener() {
@@ -154,9 +156,9 @@ public class MainSimulatorView extends ActionBarActivity
                 public void onClick(View v) {
                     TheSimulator.registerSimulationWorld(new TestSimWorld1());
 
-                    // run 1 second
-                    TheSimulator.runToTime(1000);
-                    test1Button.setText(TheSimulator.describeWorlds());
+                    // run 10 second
+                    TheSimulator.runToTime(10000);
+                    mainTextView.setText(TheSimulator.describeWorlds());
 
                 }
             });

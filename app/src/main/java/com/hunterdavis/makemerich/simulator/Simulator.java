@@ -106,5 +106,11 @@ public class Simulator {
         while(simulatorState.simulatorTime < timeToRunTo) {
             tick();
         }
+
+        for(SimulationWorld world : simulationWorlds) {
+            for(Account account : world.getSimulatorAccounts()) {
+                account.runToTimeInFuture(timeToRunTo);
+            }
+        }
     }
 }
