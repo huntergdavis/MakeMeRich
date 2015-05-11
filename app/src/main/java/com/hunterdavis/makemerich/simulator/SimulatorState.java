@@ -1,6 +1,9 @@
 package com.hunterdavis.makemerich.simulator;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
+
+import com.hunterdavis.makemerich.R;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -21,6 +24,9 @@ public class SimulatorState {
         ticks = 0;
         simulatorTime = 0;
         silentMode = new AtomicBoolean(false);
+
+        simulationGranularity = Float.valueOf(PreferenceManager.getDefaultSharedPreferences(context).
+                getString(context.getString(R.string.id_fidelity),context.getString(R.string.simulation_fidelity_default_value)));
 
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by hunter on 5/10/15.
@@ -16,15 +15,15 @@ public class Simulator {
 
     public SimulatorState simulatorState;
 
-    public ArrayList<SimulatorEvent> eventPlugins = new ArrayList<>();
+    public ArrayList<SimulationWorld> simulationWorlds = new ArrayList<>();
 
-    public void registerEventPlugin(SimulatorEvent event) {
-        eventPlugins.add(event);
+    public void registerSimulationWorld(SimulationWorld event) {
+        simulationWorlds.add(event);
     }
 
-    public void unregisterEventPlugin(long eventId, boolean removeAllFound) {
-        for (Iterator eventRemovalIterator = eventPlugins.iterator(); eventRemovalIterator.hasNext();) {
-            SimulatorEvent event = (SimulatorEvent) eventRemovalIterator.next();
+    public void unregisterSimulationWorld(long eventId, boolean removeAllFound) {
+        for (Iterator eventRemovalIterator = simulationWorlds.iterator(); eventRemovalIterator.hasNext();) {
+            SimulationWorld event = (SimulationWorld) eventRemovalIterator.next();
 
             if(event.id == eventId) {
                 eventRemovalIterator.remove();
@@ -34,6 +33,17 @@ public class Simulator {
                 }
             }
         }
+    }
+
+    public String describeWorlds() {
+        String descriptionString = "";
+
+        for(SimulationWorld world : simulationWorlds) {
+            descriptionString += world.describeWorld(appContext);
+            descriptionString += "\n";
+        }
+
+        return descriptionString;
     }
 
     public Simulator(Context context) {
@@ -49,7 +59,7 @@ public class Simulator {
         simulatorState.ticks++;
 
         // do simulator stuff pre-time
-        for(SimulatorEvent simEvent : eventPlugins) {
+        for(SimulationWorld simEvent : simulationWorlds) {
             for(SimulatorEventRunnable runMe : simEvent.getPreTimeRunnables()) {
                 runMe.updateStateAndRun(simulatorState);
             }
@@ -57,10 +67,10 @@ public class Simulator {
         }
 
         // add more time to simulator
-        simulatorState.simulatorTime++;
+        simulatorState.simulatorTime += simulatorState.simulationGranularity;
 
         // do simulator stuff on-time
-        for(SimulatorEvent simEvent : eventPlugins) {
+        for(SimulationWorld simEvent : simulationWorlds) {
             // execute plugin on-time logic
             for(SimulatorEventRunnable runMe : simEvent.getOnTimeRunnables()) {
                 runMe.updateStateAndRun(simulatorState);
@@ -68,13 +78,12 @@ public class Simulator {
         }
 
         // do simulator stuff post-time
-        for(SimulatorEvent simEvent : eventPlugins) {
+        for(SimulationWorld simEvent : simulationWorlds) {
             // execute plugin post-time logic
-            for(SimulatorEventRunnable runMe : simEvent.getPostTimeRunnables()) {
+            for (SimulatorEventRunnable runMe : simEvent.getPostTimeRunnables()) {
                 runMe.updateStateAndRun(simulatorState);
             }
         }
-
 
     }
 
@@ -88,10 +97,9 @@ public class Simulator {
     }
 
     public void runToTime(long timeToRunTo) {
-        final long runToMe = timeToRunTo;
 
         // we've passed this time already
-        if(simulatorState.simulatorTime > runToMe) {
+        if(simulatorState.simulatorTime > timeToRunTo) {
             return;
         }
 

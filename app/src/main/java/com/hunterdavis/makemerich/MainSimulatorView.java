@@ -6,20 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.hunterdavis.makemerich.simulator.Simulator;
+import com.hunterdavis.makemerich.simulator.TestSimWorld1;
 
 
 public class MainSimulatorView extends ActionBarActivity
@@ -148,6 +145,22 @@ public class MainSimulatorView extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main_simulator_view, container, false);
+
+
+            final Button test1Button = (Button)rootView.findViewById(R.id.button_test_simulation_1);
+
+            test1Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TheSimulator.registerSimulationWorld(new TestSimWorld1());
+
+                    // run 1 second
+                    TheSimulator.runToTime(1000);
+                    test1Button.setText(TheSimulator.describeWorlds());
+
+                }
+            });
+
             return rootView;
         }
 
