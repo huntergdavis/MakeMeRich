@@ -20,6 +20,7 @@ public class TestSimWorld1 extends SimulationWorld {
     }
 
     private Account createTestAccount1() {
-        return Account.createAccountWithSimpleInterestCalculatedDaily(0.2f);
+        // 2% interest calculated daily, not 20%
+        return Account.createAccountWithSimpleInterestCalculatedDaily(0.02f);
     }
 }

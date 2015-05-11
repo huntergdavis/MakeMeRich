@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class SimulationWorld {
 
     public String name = null;
-    public long id = 0;
+    private long id = 0;
     
     public ArrayList<SimulatorEventRunnable> getPreTimeRunnables() {
         return new ArrayList<SimulatorEventRunnable>();
@@ -24,6 +24,10 @@ public abstract class SimulationWorld {
     }
     public ArrayList<SettingsActionDataItem> getSettingsItems() {
         return new ArrayList<SettingsActionDataItem>();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public ArrayList<Account> getSimulatorAccounts() {

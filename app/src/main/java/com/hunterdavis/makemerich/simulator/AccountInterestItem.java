@@ -15,16 +15,10 @@ public class AccountInterestItem {
         this.calculationFrequencyInMilliseconds = calculationFrequencyInMilliseconds;
     }
 
-    public boolean isThisTimeWithinCalculationBoundery(long time) {
-        return ((startTime < time) && (endTime > time));
-    }
+    public float giveMePrincipalAtThisTime(float principal, long timeInMS) {
+        float timeTotalFraction = timeInMS / Constants.MILLIS_IN_YEAR;
 
-    public boolean thisThisATimeExactlyWhenWeCalculateInterest(long time) {
-        return (calculationFrequencyInMilliseconds % time) == 0;
-    }
-
-    public float giveMeInterestNow(float currentPrincipal) {
-        return currentPrincipal * ((interestYearly / Constants.MILLIS_IN_YEAR)  * calculationFrequencyInMilliseconds );
+        return (float)( principal * Math.pow((1 + (interestYearly / 365) ), (365 * timeTotalFraction)));
     }
 
     @Override

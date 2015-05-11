@@ -154,10 +154,12 @@ public class MainSimulatorView extends ActionBarActivity
             test1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    TheSimulator.resetToZeroStateWithCurrentPlugins();
+                    TheSimulator.unregisterSimulationWorld(new TestSimWorld1().getId(),false);
                     TheSimulator.registerSimulationWorld(new TestSimWorld1());
 
-                    // run 10 second
-                    TheSimulator.runToTime(10000);
+                    // run 100 second
+                    TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
                     mainTextView.setText(TheSimulator.describeWorlds());
 
                 }

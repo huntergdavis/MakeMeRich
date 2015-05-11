@@ -42,28 +42,15 @@ public class Account {
     // returns value at time, or current if past
     public float getValueAtTimeInFuture(long time) {
 
+
         if (time < currentTime) {
             return currentValue;
         }
 
-        // the time for this little mini sim
-        long miniSimulationTime = currentTime;
         float miniSimulationPrincipal = currentValue;
+        for (AccountInterestItem item : interestItems) {
 
-        while (miniSimulationTime < time) {
-
-            for (AccountInterestItem item : interestItems) {
-
-                // if this item is 'on'
-                if (item.isThisTimeWithinCalculationBoundery(miniSimulationTime)) {
-                    // if this is an interest calculation boundry time
-                    if (item.thisThisATimeExactlyWhenWeCalculateInterest(miniSimulationTime)) {
-                        miniSimulationPrincipal += item.giveMeInterestNow(miniSimulationPrincipal);
-                    }
-                }
-            }
-
-            miniSimulationTime++;
+            miniSimulationPrincipal = item.giveMePrincipalAtThisTime(miniSimulationPrincipal, time);
         }
 
         return miniSimulationPrincipal;

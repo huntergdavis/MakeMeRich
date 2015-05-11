@@ -39,7 +39,7 @@
         <item>3153600000</item>
         <item>31536000000</item>
     </string-array>
-    <string name="simulation_fidelity_default_value">Days</string>
+    <string name="simulation_fidelity_default_value">31536000</string>
 
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>

@@ -25,7 +25,7 @@ public class Simulator {
         for (Iterator eventRemovalIterator = simulationWorlds.iterator(); eventRemovalIterator.hasNext();) {
             SimulationWorld event = (SimulationWorld) eventRemovalIterator.next();
 
-            if(event.id == eventId) {
+            if(event.getId() == eventId) {
                 eventRemovalIterator.remove();
 
                 if(!removeAllFound) {
@@ -103,8 +103,19 @@ public class Simulator {
             return;
         }
 
-        while(simulatorState.simulatorTime < timeToRunTo) {
-            tick();
+        // check if we have anything to run - optimization
+        int total = 0;
+        for(SimulationWorld world : simulationWorlds) {
+            total += world.getOnTimeRunnables().size();
+            total += world.getPostTimeRunnables().size();
+            total += world.getPreTimeRunnables().size();
+        }
+        if(total == 0) {
+            while (simulatorState.simulatorTime < timeToRunTo) {
+                tick();
+            }
+        }else {
+            simulatorState.simulatorTime = timeToRunTo;
         }
 
         for(SimulationWorld world : simulationWorlds) {
