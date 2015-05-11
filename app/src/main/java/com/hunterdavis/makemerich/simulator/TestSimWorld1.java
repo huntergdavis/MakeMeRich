@@ -7,12 +7,17 @@ import java.util.ArrayList;
  */
 public class TestSimWorld1 extends SimulationWorld {
 
+    ArrayList<Account> retAccounts;
 
-    public ArrayList<Account> getSimulatorAccounts() {
+
+    public TestSimWorld1() {
         ArrayList<Account> retAccounts =  new ArrayList<>();
 
         retAccounts.add(createTestAccount1());
-        return retAccounts;
+    }
+
+    public ArrayList<Account> getSimulatorAccounts() {
+       return retAccounts;
     }
 
     private Account createTestAccount1() {
