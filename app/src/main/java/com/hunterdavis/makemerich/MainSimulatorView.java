@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hunterdavis.makemerich.simulator.Simulator;
+import com.hunterdavis.makemerich.simulator.simulations.AdjustableRateAndTimeSimulationWorld;
 import com.hunterdavis.makemerich.simulator.simulations.AdjustableRatesSimulationWorld;
 import com.hunterdavis.makemerich.simulator.simulations.TestSimWorld1;
 
@@ -37,6 +38,9 @@ public class MainSimulatorView extends ActionBarActivity
     // our financial Simulator
 
     public static Simulator TheSimulator = null;
+
+    public static TextView mainTextView = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +153,7 @@ public class MainSimulatorView extends ActionBarActivity
             View rootView = inflater.inflate(R.layout.fragment_main_simulator_view, container, false);
 
 
-            final TextView mainTextView = (TextView)rootView.findViewById(R.id.helloSimTextView);
+            mainTextView = (TextView)rootView.findViewById(R.id.helloSimTextView);
             final Button test1Button = (Button)rootView.findViewById(R.id.button_test_simulation_1);
 
             test1Button.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +178,21 @@ public class MainSimulatorView extends ActionBarActivity
                     TheSimulator.resetToZeroStateWithCurrentPlugins();
                     TheSimulator.unregisterSimulationWorld(new AdjustableRatesSimulationWorld().getId(),false);
                     TheSimulator.registerSimulationWorld(new AdjustableRatesSimulationWorld());
+
+                    // run 1 year
+                    TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
+                    mainTextView.setText(TheSimulator.describeWorlds());
+                }
+            });
+
+            final Button test3Button = (Button)rootView.findViewById(R.id.button_test_simulation_2);
+
+            test3Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TheSimulator.resetToZeroStateWithCurrentPlugins();
+                    TheSimulator.unregisterSimulationWorld(new AdjustableRateAndTimeSimulationWorld().getId(),false);
+                    TheSimulator.registerSimulationWorld(new AdjustableRateAndTimeSimulationWorld());
 
                     // run 1 year
                     TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);

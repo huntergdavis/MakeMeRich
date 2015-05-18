@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -16,7 +17,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.EditText;
 
+
+import com.hunterdavis.makemerich.simulator.Account;
+import com.hunterdavis.makemerich.simulator.SettingsActionDataItem;
+import com.hunterdavis.makemerich.simulator.SimulationWorld;
 
 import java.util.List;
 
@@ -46,6 +52,7 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
         super.onPostCreate(savedInstanceState);
 
         setupSimplePreferencesScreen();
+
     }
 
     /**
@@ -76,6 +83,42 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
         //getPreferenceScreen().addPreference(fakeHeader);
         //addPreferencesFromResource(R.xml.pref_data_sync);
 
+
+        // for each simulation scenario
+        for(SimulationWorld simWorld : MainSimulatorView.TheSimulator.simulationWorlds) {
+            for(final SettingsActionDataItem actionDataItem : simWorld.getSettingsItems()){
+                EditTextPreference preference = new EditTextPreference(this);
+                preference.setKey(actionDataItem.name);
+
+                preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        float fValue = Float.valueOf((String)newValue);
+                        actionDataItem.runMeOnUpdate.f = fValue;
+                        actionDataItem.runMeOnUpdate.run();
+                        preference.setSummary(actionDataItem.name + ": " + actionDataItem.runMeOnUpdate.f);
+
+
+                        // regenerate the simulation to current state with new values
+                        MainSimulatorView.TheSimulator.regenerateToCurrentTimeWithNewValues();
+                        if(MainSimulatorView.mainTextView != null) {
+                            MainSimulatorView.mainTextView.setText(MainSimulatorView.TheSimulator.describeWorlds());
+                        }
+
+
+                        return true;
+                    }
+                });
+
+                preference.setText("" +actionDataItem.runMeOnUpdate.f);
+                preference.setSummary(actionDataItem.name + ": " + actionDataItem.runMeOnUpdate.f);
+                preference.setEnabled(true);
+
+                getPreferenceScreen().addPreference(preference);
+
+            }
+        }
+
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
         // to reflect the new value, per the Android Design guidelines.
@@ -83,12 +126,6 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
         bindPreferenceSummaryToValue(findPreference(getString(R.string.id_fidelity)));
         //bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
         //bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-
-        // for each simulation scenario
-        // for each settings item
-        //
-
-
 
     }
 
@@ -162,7 +199,9 @@ public class SimulatorSettingsActivity extends PreferenceActivity {
 
             // regenerate the simulation to current state with new values
             MainSimulatorView.TheSimulator.regenerateToCurrentTimeWithNewValues();
-
+            if(MainSimulatorView.mainTextView != null) {
+                MainSimulatorView.mainTextView.setText(MainSimulatorView.TheSimulator.describeWorlds());
+            }
 
             return true;
         }

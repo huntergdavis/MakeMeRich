@@ -11,6 +11,8 @@ public class Account {
     public String name;
     public String institution;
     public float currentValue;
+    public float initialValue;
+    public long initialTime;
     public long currentTime;
     public ArrayList<AccountInterestItem> interestItems;
 
@@ -20,6 +22,8 @@ public class Account {
         this.currentValue = currentValue;
         this.interestItems = interestItems;
         this.currentTime = currentTime;
+        this.initialTime = currentTime;
+        this.initialValue = currentValue;
     }
 
     public static Account createAccountWithSimpleInterestCalculatedDaily(float interest, String name, String institution, float currentValue) {
@@ -42,6 +46,11 @@ public class Account {
         Account account = new Account("test1 - Savings","BECU",5000,0, interestItems);
 
         return account;
+    }
+
+    public void reset() {
+        this.currentTime = initialTime;
+        this.currentValue = initialValue;
     }
 
     public void runToTimeInFuture(long time) {

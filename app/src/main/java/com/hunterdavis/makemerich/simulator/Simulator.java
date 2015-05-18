@@ -53,6 +53,12 @@ public class Simulator {
 
     public void resetToZeroStateWithCurrentPlugins() {
         simulatorState= new SimulatorState(appContext);
+
+        for(SimulationWorld world : simulationWorlds) {
+            for(Account account : world.getSimulatorAccounts()) {
+                account.reset();
+            }
+        }
     }
 
     public void tick() {
@@ -100,6 +106,8 @@ public class Simulator {
 
         // we've passed this time already
         if(simulatorState.simulatorTime > timeToRunTo) {
+            resetToZeroStateWithCurrentPlugins();
+            runToTime(timeToRunTo);
             return;
         }
 
