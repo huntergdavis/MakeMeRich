@@ -185,7 +185,7 @@ public class MainSimulatorView extends ActionBarActivity
                 }
             });
 
-            final Button test3Button = (Button)rootView.findViewById(R.id.button_test_simulation_2);
+            final Button test3Button = (Button)rootView.findViewById(R.id.button_test_simulation_3);
 
             test3Button.setOnClickListener(new View.OnClickListener() {
                 @Override

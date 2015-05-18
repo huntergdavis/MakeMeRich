@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hunter on 5/10/15.
@@ -42,6 +43,9 @@ public class Simulator {
             descriptionString += world.describeWorld(appContext);
             descriptionString += "\n";
         }
+
+        descriptionString += "Simulation has ran " + String.format("%f years",
+                TimeUnit.MILLISECONDS.toDays(simulatorState.simulatorTime)/365);
 
         return descriptionString;
     }
