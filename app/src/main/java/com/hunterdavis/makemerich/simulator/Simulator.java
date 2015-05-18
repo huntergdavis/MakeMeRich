@@ -43,11 +43,10 @@ public class Simulator {
 
         for(SimulationWorld world : simulationWorlds) {
             descriptionString += world.describeWorld(appContext);
-            descriptionString += "\n";
         }
 
         descriptionString += "Simulation has ran " + (float)((simulatorState.simulatorTime)/Constants.MILLIS_IN_YEAR)
-        + "years" ;
+        + " years" ;
 
         return descriptionString;
     }
