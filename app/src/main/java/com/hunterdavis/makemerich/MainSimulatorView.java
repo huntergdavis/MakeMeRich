@@ -17,7 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.hunterdavis.makemerich.simulator.Simulator;
-import com.hunterdavis.makemerich.simulator.TestSimWorld1;
+import com.hunterdavis.makemerich.simulator.simulations.AdjustableRatesSimulationWorld;
+import com.hunterdavis.makemerich.simulator.simulations.TestSimWorld1;
 
 
 public class MainSimulatorView extends ActionBarActivity
@@ -162,6 +163,21 @@ public class MainSimulatorView extends ActionBarActivity
                     TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
                     mainTextView.setText(TheSimulator.describeWorlds());
 
+                }
+            });
+
+            final Button test2Button = (Button)rootView.findViewById(R.id.button_test_simulation_2);
+
+            test2Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TheSimulator.resetToZeroStateWithCurrentPlugins();
+                    TheSimulator.unregisterSimulationWorld(new AdjustableRatesSimulationWorld().getId(),false);
+                    TheSimulator.registerSimulationWorld(new AdjustableRatesSimulationWorld());
+
+                    // run 1 year
+                    TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
+                    mainTextView.setText(TheSimulator.describeWorlds());
                 }
             });
 

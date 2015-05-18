@@ -22,6 +22,16 @@ public class Account {
         this.currentTime = currentTime;
     }
 
+    public static Account createAccountWithSimpleInterestCalculatedDaily(float interest, String name, String institution, float currentValue) {
+        ArrayList<AccountInterestItem> interestItems = new ArrayList<>();
+
+        AccountInterestItem regularInterest = new AccountInterestItem(interest, -1, Long.MAX_VALUE, Constants.MILLIS_IN_DAY);
+        interestItems.add(regularInterest);
+
+        Account account = new Account(name,institution,currentValue,0, interestItems);
+
+        return account;
+    }
 
     public static Account createAccountWithSimpleInterestCalculatedDaily(float interest) {
         ArrayList<AccountInterestItem> interestItems = new ArrayList<AccountInterestItem>();

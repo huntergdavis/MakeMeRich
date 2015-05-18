@@ -13,4 +13,5 @@
     <string name="action_settings">Settings</string>
     <string name="hello_simulator">Welcome to your Financial Simulator</string>
     <string name="button_test_sim_1">Run Test Simulation 1 (basic account)</string>
+    <string name="button_test_sim_2">Run Adjustable Sliding Interest Simulation</string>
 </resources>

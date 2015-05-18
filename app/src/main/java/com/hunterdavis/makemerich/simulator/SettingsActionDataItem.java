@@ -8,28 +8,29 @@ public class SettingsActionDataItem {
     float minValue;
     float maxValue;
     float step;// (1.0 for int data etc);
-    SettingsActionDataItemRunnable whatToDoWithResult;
-
-    public static class SettingsActionDataItemRunnable implements Runnable {
-
-        float updatedValue;
-
-        public SettingsActionDataItemRunnable(float newValue) {
-            updatedValue = newValue;
-        };
+    RunnableWithFloatValue runMeOnUpdate;
 
 
-        public void run() {
-
-        };
-    }
-
-    public SettingsActionDataItem(String name, float min, float max, float step) {
+    public SettingsActionDataItem(String name, float min, float max, float step, RunnableWithFloatValue runMeOnChange) {
         this.name = name;
         this.minValue = min;
         this.maxValue = max;
         this.step = step;
-        this.whatToDoWithResult = new SettingsActionDataItemRunnable(step);
+        this.runMeOnUpdate = runMeOnChange;
     }
 
+
+    public static class RunnableWithFloatValue implements Runnable {
+
+        public Float f;
+
+        public RunnableWithFloatValue(Float f) {
+            this.f = f;
+        }
+
+        @Override
+        public void run() {
+
+        }
+    }
 }
