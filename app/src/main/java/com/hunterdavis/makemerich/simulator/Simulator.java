@@ -2,6 +2,8 @@ package com.hunterdavis.makemerich.simulator;
 
 import android.content.Context;
 
+import com.hunterdavis.makemerich.Constants;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +46,8 @@ public class Simulator {
             descriptionString += "\n";
         }
 
-        descriptionString += "Simulation has ran " + String.format("%f years",
-                TimeUnit.MILLISECONDS.toDays(simulatorState.simulatorTime)/365);
+        descriptionString += "Simulation has ran " + (float)((simulatorState.simulatorTime)/Constants.MILLIS_IN_YEAR)
+        + "years" ;
 
         return descriptionString;
     }
