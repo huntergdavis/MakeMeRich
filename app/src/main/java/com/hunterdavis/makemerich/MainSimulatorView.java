@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.hunterdavis.makemerich.simulator.Simulator;
 import com.hunterdavis.makemerich.simulator.simulations.AdjustableRateAndTimeSimulationWorld;
 import com.hunterdavis.makemerich.simulator.simulations.AdjustableRatesSimulationWorld;
+import com.hunterdavis.makemerich.simulator.simulations.SimpleUtilitySimulation;
+import com.hunterdavis.makemerich.simulator.simulations.SolarUtilitySimulation;
 import com.hunterdavis.makemerich.simulator.simulations.TestSimWorld1;
 
 
@@ -193,6 +195,36 @@ public class MainSimulatorView extends ActionBarActivity
                     TheSimulator.resetToZeroStateWithCurrentPlugins();
                     TheSimulator.unregisterSimulationWorld(new AdjustableRateAndTimeSimulationWorld().getId(),false);
                     TheSimulator.registerSimulationWorld(new AdjustableRateAndTimeSimulationWorld());
+
+                    // run 1 year
+                    TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
+                    mainTextView.setText(TheSimulator.describeWorlds());
+                }
+            });
+
+            final Button test4Button = (Button)rootView.findViewById(R.id.button_test_simulation_4);
+
+            test4Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TheSimulator.resetToZeroStateWithCurrentPlugins();
+                    TheSimulator.unregisterSimulationWorld(new SimpleUtilitySimulation().getId(),false);
+                    TheSimulator.registerSimulationWorld(new SimpleUtilitySimulation());
+
+                    // run 1 year
+                    TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);
+                    mainTextView.setText(TheSimulator.describeWorlds());
+                }
+            });
+
+            final Button tes53Button = (Button)rootView.findViewById(R.id.button_test_simulation_5);
+
+            tes53Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TheSimulator.resetToZeroStateWithCurrentPlugins();
+                    TheSimulator.unregisterSimulationWorld(new SolarUtilitySimulation().getId(),false);
+                    TheSimulator.registerSimulationWorld(new SolarUtilitySimulation());
 
                     // run 1 year
                     TheSimulator.runToTime(Constants.MILLIS_IN_YEAR);

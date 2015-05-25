@@ -2,6 +2,8 @@ package com.hunterdavis.makemerich.simulator;
 
 import android.content.Context;
 
+import com.hunterdavis.makemerich.simulator.accounts.Account;
+
 import java.util.ArrayList;
 
 /**

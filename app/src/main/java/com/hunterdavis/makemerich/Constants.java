@@ -5,6 +5,7 @@ package com.hunterdavis.makemerich;
  */
 public class Constants {
     public static long MILLIS_IN_YEAR = 31536000000l;
+    public static long MILLIS_IN_MONTH = 2628000000l;
     public static long MILLIS_IN_DAY = 86400000l;
 
 }

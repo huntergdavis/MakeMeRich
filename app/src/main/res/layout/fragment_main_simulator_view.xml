@@ -32,6 +32,22 @@
         android:layout_below="@+id/button_test_simulation_2"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_test_sim_4"
+        android:id="@+id/button_test_simulation_4"
+        android:layout_below="@+id/button_test_simulation_3"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_test_sim_5"
+        android:id="@+id/button_test_simulation_5"
+        android:layout_below="@+id/button_test_simulation_4"
+        android:layout_centerHorizontal="true" />
+
 
     <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -42,6 +58,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/hello_simulator"
         android:id="@+id/helloSimTextView"
-        android:layout_below="@id/button_test_simulation_3"
+        android:layout_below="@id/button_test_simulation_5"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

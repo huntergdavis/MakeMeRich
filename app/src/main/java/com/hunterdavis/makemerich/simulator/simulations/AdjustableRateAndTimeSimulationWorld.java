@@ -2,7 +2,6 @@ package com.hunterdavis.makemerich.simulator.simulations;
 
 import com.hunterdavis.makemerich.Constants;
 import com.hunterdavis.makemerich.MainSimulatorView;
-import com.hunterdavis.makemerich.simulator.Account;
 import com.hunterdavis.makemerich.simulator.SettingsActionDataItem;
 
 import java.util.ArrayList;

@@ -15,4 +15,8 @@
     <string name="button_test_sim_1">Run Test Simulation 1 (basic account)</string>
     <string name="button_test_sim_2">Run Adjustable Sliding Interest Simulation</string>
     <string name="button_test_sim_3">Run Adjustable Sliding Time and Interest Simulation</string>
+    <string name="button_test_sim_4">Basic Utility Simulation Adjustable Rate Increase</string>
+    <string name="button_test_sim_5">Basic Utility Simulation Adjustable Increase and Solar Power</string>
+
+
 </resources>

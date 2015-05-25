@@ -1,6 +1,6 @@
 package com.hunterdavis.makemerich.simulator.simulations;
 
-import com.hunterdavis.makemerich.simulator.Account;
+import com.hunterdavis.makemerich.simulator.accounts.Account;
 import com.hunterdavis.makemerich.simulator.SimulationWorld;
 
 import java.util.ArrayList;

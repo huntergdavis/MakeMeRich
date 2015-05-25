@@ -3,10 +3,10 @@ package com.hunterdavis.makemerich.simulator;
 import android.content.Context;
 
 import com.hunterdavis.makemerich.Constants;
+import com.hunterdavis.makemerich.simulator.accounts.Account;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hunter on 5/10/15.
